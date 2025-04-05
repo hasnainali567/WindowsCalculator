@@ -1,0 +1,242 @@
+:root {
+  --primary-bg-clr: #1d2123;
+  --op-btn-clr: #303239;
+  --btn-clr: #383b41;
+  --equal-btn-clr: #4cc2ff;
+  --text-clr: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-clr);
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-size: 16px;
+  background-color: var(--primary-bg-clr);
+  color: var(--text-clr);
+}
+.flex {
+  display: flex;
+}
+
+.center {
+  align-items: center;
+}
+
+.sbtw {
+  justify-content: space-between;
+}
+
+.grid {
+  display: grid;
+}
+
+#main {
+  width: 100%;
+  height: 100%;
+  padding: 2px;
+  gap: 5px;
+}
+
+#cal {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* background-color: green; */
+  /* gap: 40px; */
+}
+
+#nav {
+  padding-inline: 15px;
+  padding-bottom: 6px;
+  gap: 15px;
+}
+
+#nav > h2 {
+  font-weight: 500;
+  font-size: 1.35rem;
+}
+
+#uperScreen {
+  width: 100%;
+  text-align: right;
+  color: #acacac;
+  padding: 8px;
+  padding-bottom: 0;
+}
+
+#uperScreen > p {
+  color: inherit;
+}
+
+#screen {
+  background-color: transparent;
+  width: 100%;
+  text-align: right;
+  padding: 0px 8px 40px;
+  font-size: 5rem;
+  font-weight: 600;
+  border: none;
+  outline: none;
+}
+
+.btn-container {
+  height: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+}
+
+.btns {
+  background-color: var(--btn-clr);
+  border: none;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btns:hover {
+  background-color: var(--op-btn-clr);
+}
+
+.btns:active {
+  background-color: var(--btn-clr);
+}
+
+.opr-btn {
+  background-color: var(--op-btn-clr);
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.opr-btn:hover {
+  background-color: var(--btn-clr);
+}
+
+.opr-btn:active {
+  background-color: var(--op-btn-clr);
+}
+
+.equal-btn {
+  background-color: #4cc2ff;
+}
+
+.equal-btn:hover {
+  background-color: hsl(200, 100%, 55%);
+}
+
+.equal-btn:active {
+  background-color: hsl(200, 100%, 45%);
+}
+
+.fa-circle{
+    font-size: .4rem !important;
+}
+
+#history {
+  width: 20%;
+  height: 100%;
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* background-color: #fff; */
+}
+
+#hisNav {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+  gap: 30px;
+}
+
+#hisNav > span {
+  padding-bottom: 10px;
+  color: #f5f5f5;
+  position: relative;
+  cursor: pointer;
+}
+
+#hisNav > span:nth-child(1)::before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 4px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+  background-color: #4cc2ff;
+}
+
+#history-container {
+  width: 100%;
+  padding-block: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 10px;
+}
+
+.histories {
+  width: 100%;
+  padding: 5px;
+  padding-right: 8px;
+  border-radius: 4px;
+  text-align: right;
+  color: #1d2123;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.histories:hover {
+  background-color: #6262627a;
+}
+
+.operationVal {
+  color: #acacac;
+  font-size: 0.9rem;
+}
+
+.operationResult {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.delHistory{
+    display: flex;
+    justify-content: end;
+    padding: 5px;
+}
+
+.delHistory > i{
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.delHistory > i:hover {
+    background-color: #6262627a;
+}
+
+
+
+@media screen and (max-width : 900px) {
+    #cal {
+        width: 100%;
+    }
+
+    #history {
+        display: none;
+    }
+}
