@@ -12,37 +12,37 @@
     <div id="main" class="flex">
         <div id="cal">
             <div id="nav" class="flex center">
-                <i class="fa fa-bars" aria-hidden="true"></i>
+                <i onclick="showHis()" class="fa fa-bars" aria-hidden="true"></i>
                 <h2>Standard</h2>
             </div>
 
             <div id="uperScreen">
-                <p>123 +</p>
+                <p></p>
             </div>
 
             <input type="text" id="screen" readonly value="0">
 
             <div class="btn-container grid">
-                <button class="btns opr-btn"><i class="fa-solid fa-percent"></i></button>
-                <button class="btns opr-btn">CE</button>
-                <button class="btns opr-btn">C</button>
-                <button class="btns opr-btn"><i class="fa-solid fa-divide"></i></button>
-                <button class="btns">7</button>
-                <button class="btns">8</button>
-                <button class="btns">9</button>
-                <button class="btns"><i class="fa-solid fa-xmark"></i></button>
-                <button class="btns">4</button>
-                <button class="btns">5</button>
-                <button class="btns">6</button>
-                <button class="btns"><i class="fa-solid fa-minus"></i></button>
-                <button class="btns">1</button>
-                <button class="btns">2</button>
-                <button class="btns">3</button>
-                <button class="btns"><i class="fa-solid fa-plus"></i></button>
+                <button value="%" class="btns opr-btn"><i class="fa-solid fa-percent"></i></button>
+                <button value="^" class="btns opr-btn">^</button>
+                <button onclick="clearScreen()" class="btns opr-btns">C</button>
+                <button value="/" class="btns opr-btn"><i class="fa-solid fa-divide"></i></button>
+                <button class="btns btn">7</button>
+                <button class="btns btn">8</button>
+                <button class="btns btn">9</button>
+                <button value="*" class="btns opr-btn"><i class="fa-solid fa-xmark"></i></button>
+                <button class="btns btn">4</button>
+                <button class="btns btn">5</button>
+                <button class="btns btn">6</button>
+                <button value="-" class="btns opr-btn"><i class="fa-solid fa-minus"></i></button>
+                <button class="btns btn">1</button>
+                <button class="btns btn">2</button>
+                <button class="btns btn">3</button>
+                <button value="+" class="btns opr-btn"><i class="fa-solid fa-plus"></i></button>
                 <button class="btns"><i class="fa-solid fa-circle"></i></button>
-                <button class="btns">0</button>
-                <button class="btns"><i class="fa-solid fa-delete-left"></i></button>
-                <button class="btns equal-btn"><i class="fa-solid fa-equals"></i></button>
+                <button class="btns btn">0</button>
+                <button onclick="decreasLast()" class="btns"><i class="fa-solid fa-delete-left"></i></button>
+                <button onclick="calculation('')" class="btns equal-btn"><i class="fa-solid fa-equals"></i></button>
                 
             </div>
 
@@ -51,42 +51,19 @@
 
 
 
-        <div id="history">
+        <div id="history" class="">
             <div id="hisNav">
                 <span>History</span>
-                <span>Memory</span>
+                <span style="flex-grow: 1;">Memory</span>
+                <i onclick="hideHis()" class="fa-solid fa-xmark"></i>
             </div>
 
             <div id="history-container">
-                <!-- <p>There's no history yet.</p> -->
-                <div class="histories flex">
-                    <p class="operationVal">
-                        123 + 4 =
-                    </p>
-                    <p class="operationResult">127</p>
-                </div>
-                <div class="histories flex">
-                    <p class="operationVal">
-                        123 + 4 =
-                    </p>
-                    <p class="operationResult">127</p>
-                </div>
-                <div class="histories flex">
-                    <p class="operationVal">
-                        123 + 4 =
-                    </p>
-                    <p class="operationResult">127</p>
-                </div>
-                <div class="histories flex">
-                    <p class="operationVal">
-                        123 + 4 =
-                    </p>
-                    <p class="operationResult">127</p>
-                </div>
+                <p id="hisP">There's no history yet.</p>
             </div>
 
             <div class="delHistory">
-                <i id="bin" class="fa-solid fa-trash"></i>
+                <i onclick="clearHistory()" id="bin" class="fa-solid fa-trash"></i>
             </div>
         </div>
     </div>

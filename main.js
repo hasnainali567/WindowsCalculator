@@ -1,80 +1,123 @@
-// Get references to all elements
-const screen = document.querySelector('.screen');
-const buttons = document.querySelectorAll('.button');
-const clearButton = document.querySelector('.clear');
-const equalButton = document.querySelector('.equal');
-const decimalButton = document.querySelector('.decimal');
-const plusMinusButton = document.querySelector('.plus-minus');
-const percentButton = document.querySelector('.percent');
+let screen = document.getElementById("screen");
+let uperScreen = document.getElementById("uperScreen");
+let history = document.getElementById("history");
+let operators = document.querySelectorAll(".opr-btn");
+let btn = document.querySelectorAll(".btn");
+let history_container = document.querySelector("#history-container");
+let hisP = history_container.querySelector('#hisP');
 
-// Initialize the screen content
-let currentInput = "";
+let currentOperator;
+let firstValue = "";
+let shouldClear = false;
 
-// Function to update the screen with the current input
-function updateScreen() {
-    screen.value = currentInput;
+btn.forEach((btns) => {
+  btns.addEventListener("click", (event) => {
+    let screenVal = screen.value;
+    let text = event.target.innerText;
+
+    if (shouldClear) {
+      screen.value = "";
+      shouldClear = false;
+    }
+
+    if (screen.value === "0") {
+      screen.value = "";
+    }
+    screen.value += text;
+    // firstValue += text;
+  });
+});
+
+
+
+function calculation(opr) {
+    if (currentOperator && screen.value !== "" && shouldClear === false) {
+        let secValue = screen.value;
+        let result = calculate(firstValue, currentOperator, secValue);
+  
+        let history = document.createElement("div");
+        history.classList.add("histories", "flex");
+        history.innerHTML = `<p class="operationVal">${firstValue} ${currentOperator} ${secValue} = </p>
+                      <p class="operationResult"> ${result} </p>`;
+  
+  
+        hisP.style.display = 'none';              
+        history_container.appendChild(history);
+  
+        currentOperator = opr;
+        screen.value = result;
+        uperScreen.textContent = `${result} ${currentOperator}`;
+        firstValue = result;
+  
+        shouldClear = true;
+      } else {
+        firstValue = screen.value;
+        uperScreen.textContent = `${firstValue} ${opr}`;
+        currentOperator = opr;
+        shouldClear = true;
+      }
 }
 
-// Add event listeners to the buttons
-buttons.forEach(button => {
-    button.addEventListener('click', (e) => {
-        const buttonValue = e.target.innerText;
-
-        // Handle different button clicks
-        if (buttonValue === 'C') {
-            currentInput = ""; // Clear the screen
-        } else if (buttonValue === '=') {
-            try {
-                currentInput = eval(currentInput).toString(); // Evaluate the expression
-            } catch (error) {
-                currentInput = "Error"; // If there's an error, display 'Error'
-            }
-        } else if (buttonValue === '+/-') {
-            // Toggle positive/negative sign
-            currentInput = (parseFloat(currentInput) * -1).toString();
-        } else if (buttonValue === '%') {
-            // Calculate percentage
-            currentInput = (parseFloat(currentInput) / 100).toString();
-        } else {
-            currentInput += buttonValue; // Add the button value to the current input
-        }
-
-        updateScreen(); // Update the screen with the latest input
-    });
+operators.forEach((op_btn) => {
+  op_btn.addEventListener("click", (event) => {
+    let opr = event.target.value;
+    calculation(opr);
+  });
 });
 
-// Event listener for the clear button (C)
-clearButton.addEventListener('click', () => {
-    currentInput = ""; // Clear the screen
-    updateScreen();
-});
+function calculate(firstValue, currentOperator, secValue) {
+  firstValue = parseFloat(firstValue);
+  secValue = parseFloat(secValue);
 
-// Event listener for the equal button (=)
-equalButton.addEventListener('click', () => {
-    try {
-        currentInput = eval(currentInput).toString(); // Evaluate the expression
-    } catch (error) {
-        currentInput = "Error"; // If there's an error, display 'Error'
-    }
-    updateScreen();
-});
+  if (isNaN(firstValue) || isNaN(secValue)) return "Error";
 
-// Event listener for the decimal button
-decimalButton.addEventListener('click', () => {
-    if (!currentInput.includes('.')) {
-        currentInput += '.'; // Add a decimal point if not already present
-    }
-    updateScreen();
-});
+  let result;
 
-// Event listener for the percent button
-percentButton.addEventListener('click', () => {
-    currentInput = (parseFloat(currentInput) / 100).toString(); // Calculate percentage
-    updateScreen();
-});
+  switch (currentOperator) {
+    case "+":
+      result = firstValue + secValue;
+      break;
+    case "-":
+      result = firstValue - secValue;
+      break;
+    case "*":
+      result = firstValue * secValue;
+      break;
+    case "/":
+      if (secValue === 0) {
+        result = "Error"; // Prevent division by zero
+      } else {
+        result = firstValue / secValue;
+      }
+      break;
+    case '^': 
+      result = Math.pow(firstValue, secValue);
+      break;
+    default:
+      result = "Invalid Operator";
+  }
 
-// Event listener for the plus-minus button
-plusMinusButton.addEventListener('click', () => {
-    currentInput = (parseFloat(currentInput) * -1).toString(); // Toggle positive/negative sign
-    updateScreen();
-});
+  return result;
+}
+
+
+function clearHistory(){
+    history_container.innerHTML = '';
+}
+
+
+function clearScreen(){
+    screen.value = '0';
+    uperScreen.textContent = '';
+    shouldClear = false;
+    currentOperator = undefined;
+    firstValue = '';
+}
+
+function showHis() {
+    history.classList.add('hisShow');
+}
+
+function hideHis() {
+    history.classList.remove('hisShow');
+}

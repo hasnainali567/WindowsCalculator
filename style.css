@@ -58,6 +58,8 @@ body {
 #nav {
   padding-inline: 15px;
   padding-bottom: 6px;
+  display: flex;
+  align-items: center;
   gap: 15px;
 }
 
@@ -66,8 +68,20 @@ body {
   font-size: 1.35rem;
 }
 
+#nav > i {
+  display: none;
+  cursor: pointer;
+  transition: .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#nav > i:hover {
+  transform: scale(1.1);
+}
+
 #uperScreen {
   width: 100%;
+  min-height: 25px;
+  /* background-color: #4cc2ff; */
   text-align: right;
   color: #acacac;
   padding: 8px;
@@ -105,6 +119,8 @@ body {
   text-align: center;
 }
 
+
+
 .btns:hover {
   background-color: var(--op-btn-clr);
 }
@@ -124,6 +140,19 @@ body {
 }
 
 .opr-btn:active {
+  background-color: var(--op-btn-clr);
+}
+.opr-btns {
+  background-color: var(--op-btn-clr);
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.opr-btns:hover {
+  background-color: var(--btn-clr);
+}
+
+.opr-btns:active {
   background-color: var(--op-btn-clr);
 }
 
@@ -162,10 +191,19 @@ body {
 }
 
 #hisNav > span {
-  padding-bottom: 10px;
+  padding-block: 10px;
   color: #f5f5f5;
+  font-weight: 500;
   position: relative;
   cursor: pointer;
+}
+
+#hisNav > i{
+  font-size: 1.2rem;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: none;
 }
 
 #hisNav > span:nth-child(1)::before {
@@ -197,6 +235,7 @@ body {
   text-align: right;
   color: #1d2123;
   flex-direction: column;
+  background-color: #383b412a;
   gap: 3px;
 }
 
@@ -221,6 +260,7 @@ body {
 }
 
 .delHistory > i{
+  font-size: 1.2rem;
     padding: 10px;
     border-radius: 4px;
 }
@@ -231,12 +271,55 @@ body {
 
 
 
-@media screen and (max-width : 900px) {
+@media screen and (max-width : 1000px) {
     #cal {
         width: 100%;
     }
 
-    #history {
-        display: none;
+    #main {
+      position: relative;
     }
+    #history {
+        /* display: none; */
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        padding-right: 10px;
+        padding-bottom: 5px;
+        background-color: #1d2123ba;
+        backdrop-filter: blur(10px);
+    }
+
+    #main .hisShow{
+      left: 0;
+    }
+
+    .histories {
+      padding: 10px;
+      padding-right: 16px;
+      border-radius: 8px;
+      background-color: #383b41;
+    }
+
+
+    .operationVal {
+      color: #acacac;
+      font-size: 1.1rem;
+    }
+    
+    .operationResult {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+    #nav > i {
+      display: block;
+    }
+
+    #hisNav > i {
+      display: block;
+    }
+
 }
