@@ -12,6 +12,19 @@ let shouldClear = false;
 
 let result = calculate("96,000");
 
+
+function saveHistoryToLocal() {
+  localStorage.setItem("calcHistory", history_container.innerHTML);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  let savedHistory = localStorage.getItem("calcHistory");
+  if (savedHistory) {
+    history_container.innerHTML = savedHistory;
+  }
+});
+
+
 //
 //
 //Add the value to display
@@ -122,6 +135,7 @@ operators.forEach((op_btn) => {
 
 function clearHistory() {
   history_container.innerHTML = "";
+  localStorage.removeItem("calcHistory");
 }
 
 //
@@ -171,6 +185,8 @@ function createHistoryElem(firstValue, currentOperator, secValue, result) {
   hisP.style.display = "none";
   
   history_container.prepend(history);
+
+  saveHistoryToLocal();
 }
 
 //
