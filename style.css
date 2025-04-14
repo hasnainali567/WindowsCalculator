@@ -291,6 +291,7 @@ body {
         padding-bottom: 5px;
         background-color: #1d2123ba;
         backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         transition: .3s cubic-bezier(0.39, 0.575, 0.565, 1);
     }
 

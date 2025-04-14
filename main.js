@@ -10,11 +10,13 @@ let currentOperator;
 let firstValue = "";
 let shouldClear = false;
 
-let result = calculate('96,000',);
+let result = calculate("96,000");
 
-
-
+//
+//
 //Add the value to display
+//
+//
 
 btn.forEach((btns) => {
   btns.addEventListener("click", (event) => {
@@ -23,28 +25,53 @@ btn.forEach((btns) => {
 
     if (shouldClear) {
       screen.value = "";
-      shouldClear = false;
+      if (btns.value !== '.') {
+        shouldClear = false;
+        console.log('hi');
+        
+      }
     }
 
-    if (screen.value === "0") {
-      screen.value = "";
+
+    if (btns.value === ".") {
+      if (shouldClear) {
+        screen.value = "0";
+        screen.value += btns.value;
+        console.log('screen after adding dot : ', screen.value);
+        shouldClear = false;
+        
+      } else if (!screen.value.includes(".")) {
+        screen.value += btns.value;
+        console.log('first dot input : ', screen.value);
+        
+      }
+    } else {
+      if (screen.value === "0") {
+        screen.value = "";
+      }
     }
     screen.value += text;
   });
 });
 
-
+//
+//
 // main function which do calculation
-
+//
+//
 
 function calculation(opr) {
   if (currentOperator && screen.value !== "" && shouldClear === false) {
     let secValue = screen.value;
     let result = calculate(firstValue, currentOperator, secValue);
     let resultVal;
-    resultVal =  addQouma(result, resultVal, firstValue, currentOperator, secValue);
-
-    
+    resultVal = addQouma(
+      result,
+      resultVal,
+      firstValue,
+      currentOperator,
+      secValue
+    );
 
     currentOperator = opr;
     screen.value = resultVal;
@@ -57,7 +84,7 @@ function calculation(opr) {
 
     firstValue = result;
 
-    console.log("firstValue after : ", firstValue);
+    // console.log("firstValue after : ", firstValue);
 
     shouldClear = true;
   } else {
@@ -71,6 +98,12 @@ function calculation(opr) {
   }
 }
 
+//
+//
+//calculate's the value when user click any function
+//
+//
+
 operators.forEach((op_btn) => {
   op_btn.addEventListener("click", (event) => {
     let opr = event.target.value;
@@ -78,9 +111,21 @@ operators.forEach((op_btn) => {
   });
 });
 
+//
+//
+//function which clears the history
+//
+//
+
 function clearHistory() {
   history_container.innerHTML = "";
 }
+
+//
+//
+// Function which clear the the value in screen whec clicking on C button
+//
+//
 
 function clearScreen() {
   screen.value = "0";
@@ -90,13 +135,30 @@ function clearScreen() {
   firstValue = "";
 }
 
+//
+//
+// function which shows the history on small devices when clicking on the bars icon
+//
+//
+
 function showHis() {
   history.classList.add("hisShow");
 }
 
+//
+//
+//function which hides the history on small devices when clicking on the x icon
+//
+//
+
 function hideHis() {
   history.classList.remove("hisShow");
 }
+//
+//
+//function which create the history element and append it to the history_container's div
+//
+//
 
 function createHistoryElem(firstValue, currentOperator, secValue, result) {
   let history = document.createElement("div");
@@ -107,7 +169,11 @@ function createHistoryElem(firstValue, currentOperator, secValue, result) {
   history_container.appendChild(history);
 }
 
-
+//
+//
+// function which add Qouma accourding to the value like 1,000 or 10,000
+//
+//
 
 function addQouma(result, resultVal, firstValue, currentOperator, secValue) {
   if (result > 9999999) {
@@ -120,9 +186,7 @@ function addQouma(result, resultVal, firstValue, currentOperator, secValue) {
       "," +
       resultVal.slice(5);
     createHistoryElem(firstValue, currentOperator, secValue, resultVal);
-  }
-  else if (result > 999999) {
-    //99,999,999
+  } else if (result > 999999) {
     resultVal = result.toString();
     resultVal =
       resultVal.slice(0, 1) +
@@ -133,8 +197,7 @@ function addQouma(result, resultVal, firstValue, currentOperator, secValue) {
     createHistoryElem(firstValue, currentOperator, secValue, resultVal);
   } else if (result > 99999) {
     resultVal = result.toString();
-    resultVal =
-      resultVal.slice(0, 3) + "," + resultVal.slice(3);
+    resultVal = resultVal.slice(0, 3) + "," + resultVal.slice(3);
     createHistoryElem(firstValue, currentOperator, secValue, resultVal);
   } else if (result > 9999) {
     resultVal = result.toString();
@@ -151,6 +214,12 @@ function addQouma(result, resultVal, firstValue, currentOperator, secValue) {
 
   return resultVal;
 }
+
+//
+//
+// function which perform the calculation according to the oprator or this is a alternate function to the eval() bcz that func is risky,
+//
+//
 
 function calculate(firstValue, currentOperator, secValue) {
   firstValue = parseFloat(firstValue);
