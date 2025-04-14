@@ -25,25 +25,20 @@ btn.forEach((btns) => {
 
     if (shouldClear) {
       screen.value = "";
-      if (btns.value !== '.') {
+      if (btns.value !== ".") {
         shouldClear = false;
-        console.log('hi');
-        
       }
     }
-
 
     if (btns.value === ".") {
       if (shouldClear) {
         screen.value = "0";
         screen.value += btns.value;
-        console.log('screen after adding dot : ', screen.value);
+        console.log("screen after adding dot : ", screen.value);
         shouldClear = false;
-        
       } else if (!screen.value.includes(".")) {
         screen.value += btns.value;
-        console.log('first dot input : ', screen.value);
-        
+        console.log("first dot input : ", screen.value);
       }
     } else {
       if (screen.value === "0") {
@@ -64,6 +59,14 @@ function calculation(opr) {
   if (currentOperator && screen.value !== "" && shouldClear === false) {
     let secValue = screen.value;
     let result = calculate(firstValue, currentOperator, secValue);
+
+    result = result.toString();
+    if (result.includes(".")) {
+      result = Number(result);
+      result = result.toFixed(3);
+    }
+    result = Number(result);
+
     let resultVal;
     resultVal = addQouma(
       result,
@@ -166,7 +169,8 @@ function createHistoryElem(firstValue, currentOperator, secValue, result) {
   history.innerHTML = `<p class="operationVal">${firstValue} ${currentOperator} ${secValue} = </p>
                       <p class="operationResult"> ${result} </p>`;
   hisP.style.display = "none";
-  history_container.appendChild(history);
+  
+  history_container.prepend(history);
 }
 
 //
@@ -217,6 +221,35 @@ function addQouma(result, resultVal, firstValue, currentOperator, secValue) {
 
 //
 //
+//del num
+//
+//
+
+function decreasLast() {
+  if (shouldClear) {
+    screen.value = 0;
+    shouldClear = false;
+  } else {
+    let screenVal = screen.value;
+
+    if (screenVal) {
+      if (screenVal !== "0") {
+        screenVal = screenVal.slice(0, screenVal.length - 1);
+
+        if (screenVal === "") {
+          screenVal = "0";
+        }
+
+        screen.value = screenVal;
+      }
+    } else {
+      screen.value = "0";
+    }
+  }
+}
+
+//
+//
 // function which perform the calculation according to the oprator or this is a alternate function to the eval() bcz that func is risky,
 //
 //
@@ -249,9 +282,41 @@ function calculate(firstValue, currentOperator, secValue) {
     case "^":
       result = Math.pow(firstValue, secValue);
       break;
+
+    case "%":
+      result = (secValue / firstValue) * 100;
+      break;
     default:
       result = "Invalid Operator";
   }
 
   return result;
 }
+
+// document.addEventListener("keypress", (key) => {
+//   if (key.keyCode === 13) {
+//     try {
+//       let screenVal = screen.value;
+
+//       let cal = calculate(firstValue, currentOperator, screenVal);
+
+//       let resultVal;
+//       resultVal = addQouma(
+//         cal,
+//         resultVal,
+//         firstValue,
+//         currentOperator,
+//         screenVal
+//       );
+//       screen.value = resultVal;
+
+//       resultVal = cal;
+//       screen.value = cal;
+
+//       firstValue = cal;
+//     } catch (error) {
+//       screen.value = error;
+//       console.log(history_container.childNodes);
+//     }
+//   }
+// });
