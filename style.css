@@ -291,7 +291,11 @@ body {
         padding-bottom: 5px;
         background-color: #1d2123ba;
         backdrop-filter: blur(10px);
+<<<<<<< HEAD
         -webkit-backdrop-filter: blur(10px);
+=======
+      -webkit-backdrop-filter: blur(10px);
+>>>>>>> 46e5d64b565e1a5c4fe2a0b88a9fab7d192850a2
         transition: .3s cubic-bezier(0.39, 0.575, 0.565, 1);
     }
 
