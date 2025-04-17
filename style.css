@@ -227,6 +227,7 @@ body {
   flex-grow: 1;
   gap: 10px;
   overflow: auto;
+  scrollbar-width: thin;
 }
 
 .histories {
@@ -269,6 +270,7 @@ body {
   font-size: 1.2rem;
     padding: 10px;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .delHistory > i:hover {

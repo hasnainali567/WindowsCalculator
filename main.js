@@ -13,15 +13,29 @@ let shouldClear = false;
 let result = calculate("96,000");
 
 
-function saveHistoryToLocal() {
-  localStorage.setItem("calcHistory", history_container.innerHTML);
+function saveHistoryToLocal(param) {
+  if(param === 'set') {
+    localStorage.setItem("calcHistory", history_container.innerHTML);
+  } else {
+    localStorage.removeItem('calcHistory')
+  }
 }
+
+
 
 window.addEventListener('DOMContentLoaded', () => {
   let savedHistory = localStorage.getItem("calcHistory");
+  let historyVisible = localStorage.getItem('historyVisible');
   if (savedHistory) {
     history_container.innerHTML = savedHistory;
   }
+
+  if (historyVisible === 'true') {
+    history.classList.add('hisShow');
+  } else {
+    history.classList.remove('hisShow')
+  }
+
 });
 
 
@@ -135,7 +149,7 @@ operators.forEach((op_btn) => {
 
 function clearHistory() {
   history_container.innerHTML = "";
-  localStorage.removeItem("calcHistory");
+  saveHistoryToLocal('remove');
 }
 
 //
@@ -160,6 +174,7 @@ function clearScreen() {
 
 function showHis() {
   history.classList.add("hisShow");
+  localStorage.setItem('historyVisible', 'true');
 }
 
 //
@@ -170,6 +185,7 @@ function showHis() {
 
 function hideHis() {
   history.classList.remove("hisShow");
+  localStorage.setItem('historyVisible', 'false');
 }
 //
 //
@@ -186,7 +202,7 @@ function createHistoryElem(firstValue, currentOperator, secValue, result) {
   
   history_container.prepend(history);
 
-  saveHistoryToLocal();
+  saveHistoryToLocal('set');
 }
 
 //
